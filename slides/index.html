@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+
+    <title>Web Development with Functional Programming | Slides</title>
+
+    <link rel="stylesheet" href="reveal.css">
+    <link rel="stylesheet" href="reveal_white.css">
+    <link rel="stylesheet" href="highlight.css">
+    <link rel="stylesheet" href="index.css">
+
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS_HTML-full"></script>
+
+    <script type="text/javascript" src="reveal.js" async></script>
+    <script type="text/javascript" src="highlight.js" async></script>
+    <script type="text/javascript" src="index.js" async></script>
+  </head>
+
+  <body>
+    <div class="reveal">
+      <div class="slides">
+
+        <section>
+          <h1>Introduction to Web Development with Functional Programming</h1>
+          <small>Follow along: <a href="https://github.com/three/intro-to-callbacks">github.com/three/intro-to-callbacks</a></small>
+        </section>
+
+        <section>
+          <h2>What you should get out of this talk?</h2>
+          <ul>
+            <li>Understand what functional programming is</li>
+            <li>Understand why functional programming is useful</li>
+            <li>Inspiration for you HackRU project</li>
+            <li>Write some code</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>What is functional programming?</h2>
+          <ul>
+            <li>Purity</li>
+            <li>Immutability</li>
+            <li>Referential Transparency</li>
+            <li>Explicit State</li>
+            <li>And more!</li>
+          </ul>
+
+          <p>Err... Let's see some examples</p>
+        </section>
+
+        <section>
+          <h2>Factorial</h2>
+          <p><em>Problem: </em> Write a function $f$ that, given a nonnegative integer returns an integer such that</p>
+          <div class="left">$$f(0)=0 \\ f(1)=1 \\ f(n)=f(n-1)+f(n-1)$$</div>
+
+          <div class="right"><pre class="javascript"><code data-trim>
+          function f(n) {
+            let prev = 0;
+            let current = 1;
+
+            if ( n == 0 ) {
+              return prev;
+            }
+
+            for (var i=0;i&lt;n-1;n++) {
+              let temp = prev;
+              prev = current;
+              current = prev+temp;
+            }
+
+            return current;
+          }
+          </code></pre></div>
+        </section>
+
+        <section>
+          <h2>Factorial</h2>
+          <p><em>Problem: </em> Write a function $f$ that, given a nonnegative integer returns an integer such that</p>
+          <div class="left">$$f(0)=0 \\ f(1)=1 \\ f(n)=f(n-1)+f(n-1)$$</div>
+
+          <div class="right"><pre class="javascript"><code data-trim>
+          function f(n) {
+            if ( n == 0 ) {
+              return 0;
+            } else if ( n == 1 ) {
+              return 1;
+            } else {
+              return f(n-1) + f(n-2);
+            }
+          }
+          </code></pre>
+
+          <small>What's wrong with this function?</small>
+        
+        </div>
+        </section>
+
+        <section>
+          <h2>Factorial</h2>
+          <p><em>Problem: </em> Write a function $f$ that, given a nonnegative integer returns an integer such that</p>
+          <div class="left">$$f(0)=0 \\ f(1)=1 \\ f(n)=f(n-1)+f(n-1)$$</div>
+
+          <div class="right"><pre class="haskell"><code data-trim>
+          f :: Integer -&gt; Integer
+          f 0 = 0
+          f 1 = 1
+          f n = f (n-1) + f (n-2)
+          </code></pre>
+
+          <small>We can automatically memoize pure functions!</small>
+        
+        </div>
+        </section>
+
+      </div>
+    </div>
+  </body>
+</html>
