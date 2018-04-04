@@ -5,9 +5,6 @@ window.addEventListener("load", function () {
     MathJax.Hub.Config({
         tex2jax: {
             inlineMath: [["$", "$"]]
-        },
-        "HTML-CSS": {
-            scale: 60
         }
     });
 

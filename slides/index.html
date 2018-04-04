@@ -28,7 +28,16 @@
         </section>
 
         <section>
-          <h2>What you should get out of this talk?</h2>
+          <h2>Follow Along</h2>
+          <ul>
+            <li>Repo: <a href="https://github.com/three/intro-to-functional">github.com/three/intro-to-functional</a> (clone me!)</li>
+            <li>Slides: <a href="https://www.threedot14.com/intro-to-functional/slides/">threedot14.com/intro-to-functional/slides</a></li>
+            <li>All code examples should (hopefully) work. Try <a href="https://repl.it/">repl.it</a>.</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>What should you get out of this workshop?</h2>
           <ul>
             <li>Understand what functional programming is</li>
             <li>Understand why functional programming is useful</li>
@@ -59,13 +68,13 @@
         </section>
 
         <section>
-          <h2>Example Problem</h2>
+          <h2>Example Problem (imperative)</h2>
 
-          <pre class="javascript big"><code data-trim>
+          <pre class="javascript"><code data-trim>
           function f(str, k) {
-            if ( str.length == 0 ) {
+            if ( str.length === 0 ) {
               return "";
-          }
+            }
 
           let lengths = [];
 
@@ -76,7 +85,7 @@
             let j;
             for (j=0;j+i&lt;str.length;j++) {
               if (!dict.get(str[i+j])) {
-                if ( distinct == k ) {
+                if ( distinct &gt;= k ) {
                   break;
                 }
 
@@ -95,7 +104,7 @@
         function findMaxIndex(arr) {
           let maxIndex = 0;
 
-          for (let i=1;i&lt;arr[i];i++) {
+          for (let i=1;i&lt;arr.length;i++) {
             if (arr[i] &gt; arr[maxIndex]) {
               maxIndex = i;
             }
@@ -107,8 +116,27 @@
         </section>
 
         <section>
+          <h2>Example Problem (functional)</h2>
+
+          <pre class="javascript"><code data-trim>
+          let f = (str, k) =&gt; range(str.length)
+            .map(p =&gt; longestKDistinct(str.substr(p), new Map(), k) )
+            .reduce(longest, "");
+
+          let longestKDistinct = (str, map, k) => {
+            if ( str.length === 0 ) return "";
+            if ( map.get(str[0]) ) return str[0] + longestKDistinct(str.substr(1), map, k);
+            if ( k &lt;= 0 ) return "";
+            return str[0] + longestKDistinct(str.substr(1), map.set(str[0],true), k-1);
+          }
+
+          let longest = (str1, str2) =&gt; str1.length>=str2.length ? str1 : str2;
+          let range = n => n===0 ? [] : range(n-1).concat([n-1]);
+          </code></pre>
+        </section>
+
+        <section>
           <h2>Factorial</h2>
-          <p><em>Problem: </em> Write a function $f$ that, given a nonnegative integer returns an integer such that</p>
           <div class="left">$$f(0)=0 \\ f(1)=1 \\ f(n)=f(n-1)+f(n-1)$$</div>
 
           <div class="right"><pre class="javascript"><code data-trim>
@@ -120,7 +148,7 @@
               return prev;
             }
 
-            for (var i=0;i&lt;n-1;n++) {
+            for (let i=0;i&lt;n-1;i++) {
               let temp = prev;
               prev = current;
               current = prev+temp;
@@ -128,12 +156,15 @@
 
             return current;
           }
-          </code></pre></div>
+          </code></pre>
+
+          <small>Works, but looks nothing like the definition</small>
+        
+        </div>
         </section>
 
         <section>
           <h2>Factorial</h2>
-          <p><em>Problem: </em> Write a function $f$ that, given a nonnegative integer returns an integer such that</p>
           <div class="left">$$f(0)=0 \\ f(1)=1 \\ f(n)=f(n-1)+f(n-1)$$</div>
 
           <div class="right"><pre class="javascript"><code data-trim>
@@ -148,26 +179,69 @@
           }
           </code></pre>
 
-          <small>What's wrong with this function?</small>
+          <small>What will happen if we calculate $f(200)$?</small>
 
         </div>
         </section>
 
         <section>
           <h2>Factorial</h2>
-          <p><em>Problem: </em> Write a function $f$ that, given a nonnegative integer returns an integer such that</p>
+
           <div class="left">$$f(0)=0 \\ f(1)=1 \\ f(n)=f(n-1)+f(n-1)$$</div>
 
-          <div class="right"><pre class="haskell"><code data-trim>
-          f :: Integer -&gt; Integer
-          f 0 = 0
-          f 1 = 1
-          f n = f (n-1) + f (n-2)
+          <div class="right"><pre class="javascript"><code data-trim>
+          let f = memoize(n => {
+            if ( n == 0 ) {
+              return 0;
+            } else if ( n == 1 ) {
+              return 1;
+            } else {
+              return f(n-1) + f(n-2);
+            }
+          });
           </code></pre>
 
-          <small>We can automatically memoize pure functions!</small>
+          <small>We trade space complexity, but faster if function is called many times</small>
         
         </div>
+        </section>
+
+        <section>
+          <h2>Memoization?</h2>
+
+          <pre class="javascript"><code data-trim>
+          function memoize(f) {
+            let memos = new Map();
+
+            return function (x) {
+              let memo = memos.get(x);
+              if ( memo !== undefined ) {
+                return memo;
+              } else {
+                let fx = f(x);
+                memos.set(x, fx);
+                return fx;
+              }
+            }
+          }
+          </code></pre>
+        </section>
+
+        <section>
+          <h2>Memoization</h2>
+
+          <pre class="javascript"><code data-trim>
+          function negate(n) {
+            console.log(`Negating ${n}`);
+            return -n;
+          }
+
+          let negatem = memoize(negate);
+
+          negatem(1); // Prints Negating 1
+          negatem(2); // Prints Negating 2
+          negatem(1); // Prints Nothing!
+          </code></pre>
         </section>
 
       </div>
