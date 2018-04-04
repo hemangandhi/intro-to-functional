@@ -23,7 +23,8 @@
 
         <section>
           <h1>Introduction to Web Development with Functional Programming</h1>
-          <small>Follow along: <a href="https://github.com/three/intro-to-callbacks">github.com/three/intro-to-callbacks</a></small>
+          <small>Repo: <a href="https://github.com/three/intro-to-functional">github.com/three/intro-to-functional</a></small>
+          <small>Slides: <a href="https://www.threedot14.com/intro-to-functional/slides/">threedot14.com/intro-to-functional/slides</a></small>
         </section>
 
         <section>
@@ -46,7 +47,63 @@
             <li>And more!</li>
           </ul>
 
-          <p>Err... Let's see some examples</p>
+          <p class="fragment">Err... Let's see some examples</p>
+        </section>
+
+        <section>
+          <h2>Example Problem</h2>
+
+          <p><em>Problem:</em> Given a string $s$ and nonnegative integer $k$ find the longest (or any longest, if multiple) substring of $s$ such that there are at most $k$ distinct characters.
+
+          <p>For example, $f(s=\text{aabcdef}, k=3) = \text{aabc}$</p>
+        </section>
+
+        <section>
+          <h2>Example Problem</h2>
+
+          <pre class="javascript big"><code data-trim>
+          function f(str, k) {
+            if ( str.length == 0 ) {
+              return "";
+          }
+
+          let lengths = [];
+
+          for (let i=0;i&lt;str.length;i++) {
+            let dict = new Map();
+            let distinct = 0;
+
+            let j;
+            for (j=0;j+i&lt;str.length;j++) {
+              if (!dict.get(str[i+j])) {
+                if ( distinct == k ) {
+                  break;
+                }
+
+                distinct++;
+                dict.set(str[i+j], true);
+              }
+            }
+
+            lengths.push(j);
+          }
+
+          let maxPos = findMaxIndex(lengths);
+          return str.substr(maxPos, lengths[maxPos]);
+        }
+
+        function findMaxIndex(arr) {
+          let maxIndex = 0;
+
+          for (let i=1;i&lt;arr[i];i++) {
+            if (arr[i] &gt; arr[maxIndex]) {
+              maxIndex = i;
+            }
+          }
+
+          return maxIndex;
+        }
+        </code></pre>
         </section>
 
         <section>
@@ -92,7 +149,7 @@
           </code></pre>
 
           <small>What's wrong with this function?</small>
-        
+
         </div>
         </section>
 
