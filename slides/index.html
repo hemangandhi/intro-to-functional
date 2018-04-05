@@ -136,8 +136,8 @@
         </section>
 
         <section>
-          <h2>Factorial</h2>
-          <div class="left">$$f(0)=0 \\ f(1)=1 \\ f(n)=f(n-1)+f(n-1)$$</div>
+          <h2>Fibbonacci</h2>
+          <div class="left">$$f(0)=0 \\ f(1)=1 \\ f(n)=f(n-1)+f(n-2)$$</div>
 
           <div class="right"><pre class="javascript"><code data-trim>
           function f(n) {
@@ -164,8 +164,8 @@
         </section>
 
         <section>
-          <h2>Factorial</h2>
-          <div class="left">$$f(0)=0 \\ f(1)=1 \\ f(n)=f(n-1)+f(n-1)$$</div>
+          <h2>Fibbonacci</h2>
+          <div class="left">$$f(0)=0 \\ f(1)=1 \\ f(n)=f(n-1)+f(n-2)$$</div>
 
           <div class="right"><pre class="javascript"><code data-trim>
           function f(n) {
@@ -187,7 +187,7 @@
         <section>
           <h2>Factorial</h2>
 
-          <div class="left">$$f(0)=0 \\ f(1)=1 \\ f(n)=f(n-1)+f(n-1)$$</div>
+          <div class="left">$$f(0)=0 \\ f(1)=1 \\ f(n)=f(n-1)+f(n-2)$$</div>
 
           <div class="right"><pre class="javascript"><code data-trim>
           let f = memoize(n => {
@@ -208,7 +208,6 @@
 
         <section>
           <h2>Memoization?</h2>
-
           <pre class="javascript"><code data-trim>
           function memoize(f) {
             let memos = new Map();
@@ -243,7 +242,37 @@
           negatem(1); // Prints Nothing!
           </code></pre>
         </section>
-
+	<section>
+	  <h2>Oh no code duplication</h2>
+	  <pre class="javascript"><code data-trim>
+	      //let getApiThing = (location,token,type,id,errorf) => ...
+	      let location = "https://location:42069";
+	      let token = "CAFE78AE9BABE00F";
+	      let thing1 = getApiThing(location,token,"thingType","thingId", (error)=>alert("there was a problem:"+error));
+	      let thing2 = getApiThing(location,token,"otherType","thingId2", (error)=>alert("there was a problem:"+error));
+	      let thing3 = getApiThing(location,token,"otherOtherType","thingId3", (error)=>alert("there was a problem:"+error));
+          </code></pre>
+	</section>
+	<section>
+	  <h2>Currying</h2>
+	  <pre class="javascript"><code data-trim>
+	      let handleError = (err) => alert("there was a problem: "+err);
+	      let getThing = (type,id) => getApiThing(location,token,type,thing,handleError);
+	      
+	      let thing1 = getThing("thingType","thingId");
+	      let thing2 = getThing("otherType","thingId2");
+	      let thing3 = getThing("otherOtherType","thingId3");
+          </code></pre>
+	  much clearer
+	</section>
+	<section>
+	  <h2>What is a REPL and why use one</h2>
+	  <ul>
+	    <li class="fragment">Quick feedback and testing. Good for hackathons (-;</li>
+	    <li class="fragment">Checking quick expressions</li>
+	    <li class="fragment">Inspection/Documentation</li>
+	  </ul>
+	</section>
       </div>
     </div>
   </body>
