@@ -1,1 +1,1 @@
-# Intro to Callbacks: Web development with functional programming
+# Intro Web development with functional programming
