@@ -1,1 +1,3 @@
-# Intro Web development with functional programming
+# Intro Web development frontend...
+
+View slides/index.html

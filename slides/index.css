@@ -7,3 +7,26 @@
     float: right;
     width: 50%;
 }
+
+.dropdown {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.dropdown li {
+    display: inline;
+}
+
+.dropdown li div {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: none;
+    position: absolute;
+}
+
+.dropdown li:hover div {
+    display: block;
+    text-align: center;
+}

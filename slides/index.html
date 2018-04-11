@@ -3,18 +3,16 @@
   <head>
     <meta charset="UTF-8">
 
-    <title>Web Development with Functional Programming | Slides</title>
+    <title>Web Development: Frontend| Slides</title>
 
     <link rel="stylesheet" href="reveal.css">
     <link rel="stylesheet" href="reveal_white.css">
     <link rel="stylesheet" href="highlight.css">
-    <link rel="stylesheet" href="index.css">
-
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS_HTML-full"></script>
 
     <script type="text/javascript" src="reveal.js" async></script>
     <script type="text/javascript" src="highlight.js" async></script>
     <script type="text/javascript" src="index.js" async></script>
+    <link rel="stylesheet" href="index.css">
   </head>
 
   <body>
@@ -22,259 +20,283 @@
       <div class="slides">
 
         <section>
-          <h1>Introduction to Web Development with Functional Programming</h1>
-          <small>Repo: <a href="https://github.com/three/intro-to-functional">github.com/three/intro-to-functional</a></small>
-          <small>Slides: <a href="https://www.threedot14.com/intro-to-functional/slides/">threedot14.com/intro-to-functional/slides</a></small>
+          <h1>Introduction to Web Development: Frontend</h1>
+          <!-- Put in HTML5, CSS3, JS logos! -->
         </section>
 
         <section>
           <h2>Follow Along</h2>
           <ul>
-            <li>Repo: <a href="https://github.com/three/intro-to-functional">github.com/three/intro-to-functional</a> (clone me!)</li>
+            <li>Repo: <a href="https://github.com/hemangandhi/intro-to-web-dev">github.com/hemangandhi/intro-to-web-dev</a> (clone me!)</li>
             <li>Slides: <a href="https://www.threedot14.com/intro-to-functional/slides/">threedot14.com/intro-to-functional/slides</a></li>
-            <li>All code examples should (hopefully) work. Try <a href="https://repl.it/">repl.it</a>.</li>
+            <li>All code examples should (hopefully) work. Try <a href="https://codepen.io/" target="_blank">codepen.io</a>.</li>
           </ul>
         </section>
 
         <section>
           <h2>What should you get out of this workshop?</h2>
           <ul>
-            <li>Understand what functional programming is</li>
-            <li>Understand why functional programming is useful</li>
+            <li>Understand what frontend is</li>
+            <li>Understand why frontend is useful</li>
             <li>Inspiration for you HackRU project</li>
-            <li>Write some code</li>
+            <li>Write some code - make these slides!</li>
           </ul>
         </section>
 
         <section>
-          <h2>What is functional programming?</h2>
-          <ul>
-            <li>Purity</li>
-            <li>Immutability</li>
-            <li>Referential Transparency</li>
-            <li>Explicit State</li>
-            <li>And more!</li>
-          </ul>
-
+          <h2>What is frontend?</h2>
+          <p>This is the part of the website users see.</p>
           <p class="fragment">Err... Let's see some examples</p>
+          <div class="fragment">
+            <p class="left"><a href="http://oss.rutgers.edu/">Rutgers OSS</a></p>
+            <p class="left"><a href="http://www.narrowdesign.com/">Nick Jones</a></p>
+            <p class="right"><a href="http://www.rleonardi.com/interactive-resume/">Robby Leonardi</a></p>
+            <p class="right"><a href="http://strml.net/">Samuel Reed</a></p>
+          </div>
         </section>
 
         <section>
-          <h2>Example Problem</h2>
+          <h2>Project: Let's Build These Slides!</h2>
 
-          <p><em>Problem:</em> Given a string $s$ and nonnegative integer $k$ find the longest (or any longest, if multiple) substring of $s$ such that there are at most $k$ distinct characters.
+          <p>We're re-creating this, so what do we need?<p>
+          <ul>
+              <li>HTML tags: <pre class="html"><code>div, ul, li, p, h2, section, img, pre</code></pre></li>
+              <li>CSS: how to format it nicely</li>
+              <li>JS: how to smoothly transition? Syntax highlighting?</li>
+          </ul>
 
-          <p>For example, $f(s=\text{aabcdef}, k=3) = \text{aabc}$</p>
+          <br/>
+          <small>Follow along: <a href="https://codepen.io/#">online</a> or locally.</small>
 
-          <small>For simplicity we'll use the brute force solution. Don't try this during an interview.</small>
         </section>
 
         <section>
-          <h2>Example Problem (imperative)</h2>
+          <h2>The Structure of the HTML</h2>
 
-          <pre class="javascript"><code data-trim>
-          function f(str, k) {
-            if ( str.length === 0 ) {
-              return "";
-            }
+          <pre class="html"><code data-trim>
+          &lt;!DOCTYPE html&gt;
+          &lt;html&gt;
+            &lt;head&gt;
+              &lt;!-- This is a comment. We'll leave this section empty for now...--&gt;
+            &lt;/head&gt;
 
-          let lengths = [];
-
-          for (let i=0;i&lt;str.length;i++) {
-            let dict = new Map();
-            let distinct = 0;
-
-            let j;
-            for (j=0;j+i&lt;str.length;j++) {
-              if (!dict.get(str[i+j])) {
-                if ( distinct &gt;= k ) {
-                  break;
-                }
-
-                distinct++;
-                dict.set(str[i+j], true);
-              }
-            }
-
-            lengths.push(j);
-          }
-
-          let maxPos = findMaxIndex(lengths);
-          return str.substr(maxPos, lengths[maxPos]);
-        }
-
-        function findMaxIndex(arr) {
-          let maxIndex = 0;
-
-          for (let i=1;i&lt;arr.length;i++) {
-            if (arr[i] &gt; arr[maxIndex]) {
-              maxIndex = i;
-            }
-          }
-
-          return maxIndex;
-        }
+            &lt;body&gt;
+              &lt;div class="reveal"&gt;
+                &lt;div class="slides"&gt;
+                  &lt;section&gt;
+                    &lt;h2&gt;This is the title of your first slide!&lt;h2&gt;
+                  &lt;/section&gt;
+                &lt;/div&gt;
+              &lt;/div&gt;
+            &lt;/body&gt;
+          &lt;/html&gt;
         </code></pre>
         </section>
 
         <section>
-          <h2>Example Problem (functional)</h2>
+          <h2>Ew... Time for CSS.</h2>
 
-          <pre class="javascript"><code data-trim>
-          let f = (str, k) =&gt; range(str.length)
-            .map(p =&gt; longestKDistinct(str.substr(p), new Map(), k) )
-            .reduce(longest, "");
+          <p>We're going to use libraries to do the dirty work.</p>
 
-          let longestKDistinct = (str, map, k) => {
-            if ( str.length === 0 ) return "";
-            if ( map.get(str[0]) ) return str[0] + longestKDistinct(str.substr(1), map, k);
-            if ( k &lt;= 0 ) return "";
-            return str[0] + longestKDistinct(str.substr(1), map.set(str[0],true), k-1);
-          }
-
-          let longest = (str1, str2) =&gt; str1.length>=str2.length ? str1 : str2;
-          let range = n => n===0 ? [] : range(n-1).concat([n-1]);
+          <pre class="html"><code data-trim>
+&lt;head&gt;
+    &lt;link rel="stylesheet" href="reveal.css"&gt;
+    &lt;link rel="stylesheet" href="reveal_white.css"&gt;
+    &lt;link rel="stylesheet" href="highlight.css"&gt;
+&lt;/head&gt;
           </code></pre>
+
+          <p>If you're doing this online, make it
+          <pre class="html"><code>href="https://github.com/hemangandhi/intro-to-functional/blob/master/slides/{name here}"</pre></code></p>
         </section>
 
         <section>
-          <h2>Fibonacci</h2>
-          <div class="left">$$f(0)=0 \\ f(1)=1 \\ f(n)=f(n-1)+f(n-2)$$</div>
+          <h2>A Fancier Slide...</h2>
+          <div class="left fragment">Now with left align...</div>
 
-          <div class="right"><pre class="javascript"><code data-trim>
-          function f(n) {
-            let prev = 0;
-            let current = 1;
+          <div class="right fragment">...and right align</div>
 
-            if ( n == 0 ) {
-              return prev;
-            }
+          <div class="left fragment">
+              <pre class="html"><code>
+&lt;div class="left fragment"&gt;Now with left align...&lt;/div&gt;
+          </pre></code>
+            </div>
 
-            for (let i=0;i&lt;n-1;i++) {
-              let temp = prev;
-              prev = current;
-              current = prev+temp;
-            }
+          <div class="right fragment">
+              <pre class="html"><code>
+&lt;div class="right fragment"&gt;...and right align&lt;/div&gt;
+          </pre></code>
+            </div>
+        </section>
 
-            return current;
-          }
+        <section>
+          <h2>Dat CSS Tho...</h2>
+
+          <p>Save this in index.css and reference it in the HTML.</p>
+
+          <div><pre class="css"><code data-trim>
+.left {
+    float: left;
+    width: 50%;
+}
+
+.right {
+    float: right;
+    width: 50%;
+}
           </code></pre>
 
-          <small>Works, but looks nothing like the definition</small>
+
+        </div>
+        </section>
+
+        <section>
+          <h2>Javascript: Also mostly libraries</h2>
+
+          <div><pre class="html"><code data-trim>
+    &lt;script type="text/javascript" src="reveal.js" async&gt;&lt;/script&gt;
+    &lt;script type="text/javascript" src="highlight.js" async&gt;&lt;/script&gt;
+    &lt;script type="text/javascript" src="index.js" async&gt;&lt;/script&gt;
+          </code></pre>
+
+          <p>...except index.js, which we'll code up next.</p>
+
         
         </div>
         </section>
 
         <section>
-          <h2>Fibonacci</h2>
-          <div class="left">$$f(0)=0 \\ f(1)=1 \\ f(n)=f(n-1)+f(n-2)$$</div>
-
-          <div class="right"><pre class="javascript"><code data-trim>
-          function f(n) {
-            if ( n == 0 ) {
-              return 0;
-            } else if ( n == 1 ) {
-              return 1;
-            } else {
-              return f(n-1) + f(n-2);
-            }
-          }
-          </code></pre>
-
-          <small>What will happen if we calculate $f(200)$?</small>
-
-        </div>
-        </section>
-
-        <section>
-          <h2>Fibonacci</h2>
-
-          <div class="left">$$f(0)=0 \\ f(1)=1 \\ f(n)=f(n-1)+f(n-2)$$</div>
-
-          <div class="right"><pre class="javascript"><code data-trim>
-          let f = memoize(n => {
-            if ( n == 0 ) {
-              return 0;
-            } else if ( n == 1 ) {
-              return 1;
-            } else {
-              return f(n-1) + f(n-2);
-            }
-          });
-          </code></pre>
-
-          <small>We trade space complexity, but faster if function is called many times</small>
-        
-        </div>
-        </section>
-
-        <section>
-          <h2>Memoization?</h2>
+          <h2>index.js</h2>
           <pre class="javascript"><code data-trim>
-          function memoize(f) {
-            let memos = new Map();
+window.addEventListener("load", function () {
+    
+    hljs.initHighlighting();
 
-            return function (x) {
-              let memo = memos.get(x);
-              if ( memo !== undefined ) {
-                return memo;
-              } else {
-                let fx = f(x);
-                memos.set(x, fx);
-                return fx;
-              }
-            }
-          }
+    Reveal.initialize({
+        width: "100%",
+        height: "100%",
+
+        controls: false,
+        progress: false,
+        slideNumber: true,
+        history: true,
+        theme: "white"
+    });
+
+});
           </code></pre>
         </section>
 
         <section>
-          <h2>Memoization</h2>
+          <h2>The Full Code for a Very Fancy Slide...</h2>
 
-          <pre class="javascript"><code data-trim>
-          function negate(n) {
-            console.log(`Negating ${n}`);
-            return -n;
-          }
+          <pre class="html"><code data-trim>
+        &lt;section&gt;
+          &lt;h2&gt;A Fancier Slide...&lt;/h2&gt;
+          &lt;div class="left fragment"&gt;Now with left align...&lt;/div&gt;
 
-          let negatem = memoize(negate);
+          &lt;div class="right fragment"&gt;...and right align&lt;/div&gt;
 
-          negatem(1); // Prints Negating 1
-          negatem(2); // Prints Negating 2
-          negatem(1); // Prints Nothing!
-          </code></pre>
+          &lt;div class="left fragment"&gt;
+              &lt;pre class="html"&gt;&lt;code&gt;
+&amp;lt;div class="left fragment"&amp;gt;Now with left align...&amp;lt;/div&amp;gt;
+          &lt;/pre&gt;&lt;/code&gt;
+            &lt;/div&gt;
+
+          &lt;div class="right fragment"&gt;
+              &lt;pre class="html"&gt;&lt;code&gt;
+&amp;lt;div class="right fragment"&amp;gt;...and right align&amp;lt;/div&amp;gt;
+          &lt;/pre&gt;&lt;/code&gt;
+            &lt;/div&gt;
+        &lt;/section&gt;
+      </pre></code>
+
+        <small>We include it here to avoid infinite self-reference...</small>
         </section>
-	<section>
-	  <h2>Oh no code duplication</h2>
-	  <pre class="javascript"><code data-trim>
-	      //let getApiThing = (location,token,type,id,errorf) => ...
-	      let location = "https://location:42069";
-	      let token = "CAFE78AE9BABE00F";
-	      let thing1 = getApiThing(location,token,"thingType","thingId", (error)=>alert("there was a problem:"+error));
-	      let thing2 = getApiThing(location,token,"otherType","thingId2", (error)=>alert("there was a problem:"+error));
-	      let thing3 = getApiThing(location,token,"otherOtherType","thingId3", (error)=>alert("there was a problem:"+error));
-          </code></pre>
-	</section>
-	<section>
-	  <h2>Currying</h2>
-	  <pre class="javascript"><code data-trim>
-	      let handleError = (err) => alert("there was a problem: "+err);
-	      let getThing = (type,id) => getApiThing(location,token,type,thing,handleError);
-	      
-	      let thing1 = getThing("thingType","thingId");
-	      let thing2 = getThing("otherType","thingId2");
-	      let thing3 = getThing("otherOtherType","thingId3");
-          </code></pre>
-	  much clearer
-	</section>
-	<section>
-	  <h2>What is a REPL and why use one</h2>
-	  <ul>
-	    <li class="fragment">Quick feedback and testing. Good for hackathons (-;</li>
-	    <li class="fragment">Checking quick expressions</li>
-	    <li class="fragment">Inspection/Documentation</li>
-	  </ul>
-	</section>
+        <section>
+            <h2>Now the Slides are more or less there...</h2>
+            <h2 class="fragment">...just get the content...</h2>
+            <h2 class="fragment">...so let's do other stuff.</h2>
+        </section>
+        <section>
+            <h2>Hover Rules - A Basic Dropdown Menu</h2>
+            <ul class="dropdown">
+                <li>Firstly...
+                        <div>This is cool!</div>
+                </li>
+                <li>Secondly...
+                        <div>We could add JS to animate!</div>
+                </li>
+                <li>Thirdly...
+                        <div>This is quite simple to code!</div>
+                </li>
+                <li>Fourthly...
+                        <div> is not a word.</div>
+                </li>
+            </ul>
+        </section>
+        <section>
+            <h2>Hover Rules - the HTML</h2>
+            <pre class="html"><code>
+&lt;ul class="dropdown"&gt;
+    &lt;li&gt;Firstly...
+            &lt;div&gt;This is cool!&lt;/div&gt;
+    &lt;/li&gt;
+    &lt;li&gt;Secondly...
+            &lt;div&gt;We could add JS to animate!&lt;/div&gt;
+    &lt;/li&gt;
+    &lt;li&gt;Thirdly...
+            &lt;div&gt;This is quite simple to code!&lt;/div&gt;
+    &lt;/li&gt;
+    &lt;li&gt;Fourthly...
+            &lt;div&gt; is not a word.&lt;/div&gt;
+    &lt;/li&gt;
+&lt;/ul&gt;
+            </code></pre>
+        </section>
+        <section>
+            <h2>Hover Rules - the CSS</h2>
+            <pre class="css"><code>
+.dropdown {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.dropdown li {
+    display: inline;
+}
+
+.dropdown li div {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: none;
+    position: absolute;
+}
+
+.dropdown li:hover div {
+    display: block;
+    text-align: center;
+}
+            </code></pre>
+        </section>
+        <section>
+            <h2>Forms?</h2>
+
+            <form action="https://www.google.com/search" target="_blank">
+                <input name="q" type="text" placeholder="LMGTFY"></input>
+                <button>Google it!</button>
+            </form>
+
+            <pre class="fragment html"><code>
+&lt;form action="https://www.google.com/search" target="_blank"&gt;
+    &lt;input name="q" type="text" placeholder="LMGTFY"&gt;&lt;/input&gt;
+    &lt;button&gt;Google it!&lt;/button&gt;
+&lt;/form&gt;
+
+            </code></pre>
+        </section>
       </div>
     </div>
   </body>

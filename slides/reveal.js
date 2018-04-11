@@ -782,7 +782,7 @@
 	 * a slide – can trigger our content to be pushed out of view.
 	 * This scrolling can not be prevented by hiding overflow in
 	 * CSS (we already do) so we have to resort to repeatedly
-	 * checking if the slides have been offset :(
+	 * checking if the slides have been offset
 	 */
 	function setupScrollPrevention() {
 
