@@ -1,3 +1,5 @@
 # Intro Web development frontend...
 
-View slides/index.html
+[Go here...](https://hemangandhi.github.io/intro-to-web-dev/slides/index.html#/)
+
+View slides/index.html in the source code...
